@@ -1,4 +1,4 @@
-import {Navbar, ProductCard} from '../../components';
+import {Footer, Navbar, ProductCard} from '../../components';
 
 
 const Dashboard = () =>{
@@ -6,6 +6,7 @@ const Dashboard = () =>{
         <>
         <Navbar/>
         <ProductCard/>
+        <Footer/>
         </>
     )
 }
