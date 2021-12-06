@@ -9,7 +9,7 @@ const ProductCard = () => {
         });
     }, []);
     return (
-        <div className="container d-flex justify-content-center flex-wrap" style={{ marginTop: '11em' }}>
+        <div className="container d-flex justify-content-center flex-wrap" style={{ marginTop: '9em' }}>
             <div className="row d-flex justify-content-center">
                 {products?.map((product, index) => (
                     <div key={index} className="card m-3 shadow p-3 mb-5 bg-body rounded" style={{ width: '18rem' }}>
