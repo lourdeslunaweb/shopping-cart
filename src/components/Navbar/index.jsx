@@ -1,3 +1,6 @@
+import { NavLink } from "react-router-dom"
+
+
 const Navbar = () => {
     return (
         <nav className="bg-dark fixed-top p-3">
@@ -13,7 +16,7 @@ const Navbar = () => {
                         <span className="">0</span>
                     </div>
                     <div className="col-12 col-md-4 d-flex justify-content-center align-items-center mt-3 mt-md-0">
-                        <button type="button" className="btn btn-dark btn-outline-success rounded-pill text-capitalize">Cart Details</button>
+                        <NavLink to="/cart"><button type="button" className="btn btn-dark btn-outline-success rounded-pill text-capitalize">Cart Details</button></NavLink>
                     </div>
                 </div>
             </div>
