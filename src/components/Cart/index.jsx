@@ -8,13 +8,20 @@ const Cart = () => {
         setArrayProducts(JSON.parse(localStorage.getItem('products')))
     }, []);
     useEffect(() => {
-
-        let auxTotal= arrayProducts.map((product)=> 
-        console.log(product.price)
+        let aux = 0
+        let auxTotal = arrayProducts.map((product) =>
+            aux += Number(product.price.slice(1))
         )
-        console.log(auxTotal)
+        console.log(auxTotal.pop())
+    }, [arrayProducts]);
+    const handleDeleteProduct  =(product)=>{
+        console.log("se eliminó un producto")
+        console.log(product.name)
+    }
+    const handleBuy  =()=>{
+        console.log("acá va el post a la api")
+    }
 
-    }, []); 
     return (
         <div className="container d-flex align-items-center justify-content-center flex-column mb-5">
             <div className="card border-primary mb-3 mt-5 shadow-lg p-3 mb-5 bg-body rounded" style={{ width: '20rem' }}>
@@ -27,17 +34,17 @@ const Cart = () => {
                 <div className="card-body">
                     <h4 className="card-title text-capitalize">List of your products:</h4>
                     <ul className="list-group">
-                        {arrayProducts?.map((product, index)=>
-                        <li key={index}className="list-group-item d-flex justify-content-between align-items-center">
-                            <span>{product.name}</span>
-                            <span className="badge bg-primary rounded-pill">{product.price}</span>
-                            <button className="btn"><span className="badge bg-danger rounded-pill">X</span></button>
-                        </li>)}
+                        {arrayProducts?.map((product, index) =>
+                            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{product.name}</span>
+                                <span className="badge bg-primary rounded-pill">{product.price}</span>
+                                <button className="btn"><span className="badge bg-danger rounded-pill" onClick={() => handleDeleteProduct(product)}>X</span></button>
+                            </li>)}
                     </ul>
                     <div className="card-footer d-flex justify-content-between align-items-center">
                         <span>Total:</span>
                         <span className="badge bg-primary rounded-pill"><span>$</span>{total}</span>
-                        <button className="btn"><span className="badge bg-success rounded-pill text-capitalize">Buy Now</span></button>
+                        <button className="btn"><span className="badge bg-success rounded-pill text-capitalize" onClick={() => handleBuy()}>Buy Now</span></button>
                     </div>
                 </div>
             </div>
