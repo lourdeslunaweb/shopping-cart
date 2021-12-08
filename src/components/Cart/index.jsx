@@ -1,6 +1,20 @@
+import { useEffect, useState } from "react"
 import { BackBtn } from ".."
 
 const Cart = () => {
+    const [arrayProducts, setArrayProducts] = useState([])
+    const [total, setTotal] = useState(0)
+    useEffect(() => {
+        setArrayProducts(JSON.parse(localStorage.getItem('products')))
+    }, []);
+    useEffect(() => {
+
+        let auxTotal= arrayProducts.map((product)=> 
+        console.log(product.price)
+        )
+        console.log(auxTotal)
+
+    }, []); 
     return (
         <div className="container d-flex align-items-center justify-content-center flex-column mb-5">
             <div className="card border-primary mb-3 mt-5 shadow-lg p-3 mb-5 bg-body rounded" style={{ width: '20rem' }}>
@@ -13,30 +27,16 @@ const Cart = () => {
                 <div className="card-body">
                     <h4 className="card-title text-capitalize">List of your products:</h4>
                     <ul className="list-group">
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Caesar salad</span>
-                            <span className="badge bg-primary rounded-pill">$123.45</span>
+                        {arrayProducts?.map((product, index)=>
+                        <li key={index}className="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{product.name}</span>
+                            <span className="badge bg-primary rounded-pill">{product.price}</span>
                             <button className="btn"><span className="badge bg-danger rounded-pill">X</span></button>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <span>French Fries</span>
-                            <span className="badge bg-primary rounded-pill">$123.45</span>
-                            <button className="btn"><span className="badge bg-danger rounded-pill">X</span></button>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Caesar salad</span>
-                            <span className="badge bg-primary rounded-pill">$123.45</span>
-                            <button className="btn"><span className="badge bg-danger rounded-pill">X</span></button>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Greek salad</span>
-                            <span className="badge bg-primary rounded-pill">$123.45</span>
-                            <button className="btn"><span className="badge bg-danger rounded-pill">X</span></button>
-                        </li>
+                        </li>)}
                     </ul>
                     <div className="card-footer d-flex justify-content-between align-items-center">
                         <span>Total:</span>
-                        <span className="badge bg-primary rounded-pill">$123.45</span>
+                        <span className="badge bg-primary rounded-pill"><span>$</span>{total}</span>
                         <button className="btn"><span className="badge bg-success rounded-pill text-capitalize">Buy Now</span></button>
                     </div>
                 </div>
