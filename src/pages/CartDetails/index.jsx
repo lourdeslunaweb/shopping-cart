@@ -1,11 +1,10 @@
-import { Cart, EmptyCart} from "../../components"
+import { Cart} from "../../components"
 
 
 const CartDetails = () =>{
     return(
         <>
         <Cart/>
-        <EmptyCart/>
         </>
     )
 }
