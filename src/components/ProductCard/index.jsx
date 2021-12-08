@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "./api"
 
-const defaultValues = {
-    id: "",
-    name: "",
-    price:""
-};
 
 const ProductCard = () => {
     const [products, setProducts] = useState([])
-    const [cartProducts, setCartProducts] = useState(defaultValues)
-    const handleAddToCart =()=>{
-        console.log("handle add to cart")
-        setCartProducts({...cartProducts})
-        console.log(cartProducts)
+    const [cartProducts, setCartProducts] = useState([])
+    const handleAddToCart =(product)=>{
+        setCartProducts(prevState => ([...prevState, product]))
     }
+    useEffect(() => {
+        localStorage.setItem('products', JSON.stringify(cartProducts))
+    }, [cartProducts])
     useEffect(() => {
         getProducts().then((response) => {
             setProducts(response.data.products);
@@ -30,7 +26,7 @@ const ProductCard = () => {
                             <h5 className="card-title">{product.name}</h5>
                             <p className="card-text">{product.description}</p>
                             <p className="card-text">{product.price}</p>
-                            <button type="button" className="btn btn-outline-dark btn-sm rounded-pill text-capitalize" onClick={handleAddToCart}>Add To Cart</button>
+                            <button type="button" className="btn btn-outline-dark btn-sm rounded-pill text-capitalize" onClick={() => handleAddToCart(product)}>Add To Cart</button>
                         </div>
                     </div>
                 ))}
