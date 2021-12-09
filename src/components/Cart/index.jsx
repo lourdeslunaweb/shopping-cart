@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { BackBtn } from ".."
+import { buyProducts } from "./api"
 
 const Cart = () => {
     const [arrayProducts] = useState(JSON.parse(localStorage.getItem('products')))
@@ -17,6 +18,7 @@ const Cart = () => {
     }
     const handleBuy = () => {
         console.log("acá va el post a la api")
+        buyProducts(arrayProducts)
     }
     return (
         <div className="container d-flex align-items-center justify-content-center flex-column mb-5">
