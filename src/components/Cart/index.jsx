@@ -3,7 +3,7 @@ import { BackBtn } from ".."
 import { buyProducts } from "./api"
 
 const Cart = () => {
-    const [arrayProducts] = useState(JSON.parse(localStorage.getItem('products')))
+    const [arrayProducts, setArrayProducts] = useState(JSON.parse(localStorage.getItem('products')))
     const [total, setTotal] = useState(0)
     useEffect(() => {
         setTotal(
@@ -13,8 +13,9 @@ const Cart = () => {
         )
     }, [arrayProducts]);
     const handleDeleteProduct = (product) => {
-        console.log(product)
-        // localStorage.setItem('products', JSON.stringify({ ...arrayProducts, product}))
+        const newArr = arrayProducts.filter(p => p.id_LC  !== product.id_LC );
+        console.log(newArr)
+        setArrayProducts(localStorage.setItem('products', JSON.stringify(newArr)))
     }
     const handleBuy = async () => {
         buyProducts()
