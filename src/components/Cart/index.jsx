@@ -2,26 +2,21 @@ import { useEffect, useState } from "react"
 import { BackBtn } from ".."
 
 const Cart = () => {
-    const [arrayProducts, setArrayProducts] = useState([])
+    const [arrayProducts] = useState(JSON.parse(localStorage.getItem('products')))
     const [total, setTotal] = useState(0)
     useEffect(() => {
-        setArrayProducts(JSON.parse(localStorage.getItem('products')))
-    }, []);
-    useEffect(() => {
-        let aux = 0
-        let auxTotal = arrayProducts.map((product) =>
-            aux += Number(product.price.slice(1))
+        setTotal(
+            arrayProducts.reduce((acum, product) =>{
+                return acum + Number(product.price.slice(1));
+            }, 0)
         )
-        console.log(auxTotal.pop())
     }, [arrayProducts]);
     const handleDeleteProduct  =(product)=>{
-        console.log("se eliminó un producto")
-        console.log(product.name)
+        console.log(`se eliminó el producto ` + product.name)
     }
     const handleBuy  =()=>{
         console.log("acá va el post a la api")
     }
-
     return (
         <div className="container d-flex align-items-center justify-content-center flex-column mb-5">
             <div className="card border-primary mb-3 mt-5 shadow-lg p-3 mb-5 bg-body rounded" style={{ width: '20rem' }}>
