@@ -6,9 +6,9 @@ const Cart = () => {
     const [total, setTotal] = useState(0)
     useEffect(() => {
         setTotal(
-            arrayProducts.reduce((acum, product) =>{
+            (arrayProducts.reduce((acum, product) =>{
                 return acum + Number(product.price.slice(1));
-            }, 0)
+            }, 0)).toFixed(2)
         )
     }, [arrayProducts]);
     const handleDeleteProduct  =(product)=>{
