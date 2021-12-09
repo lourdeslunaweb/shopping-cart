@@ -6,15 +6,16 @@ const Cart = () => {
     const [total, setTotal] = useState(0)
     useEffect(() => {
         setTotal(
-            (arrayProducts.reduce((acum, product) =>{
+            (arrayProducts.reduce((acum, product) => {
                 return acum + Number(product.price.slice(1));
             }, 0)).toFixed(2)
         )
     }, [arrayProducts]);
-    const handleDeleteProduct  =(product)=>{
-        console.log(`se eliminó el producto ` + product.name)
+    const handleDeleteProduct = (product) => {
+        console.log(product)
+        // localStorage.setItem('products', JSON.stringify({ ...arrayProducts, product}))
     }
-    const handleBuy  =()=>{
+    const handleBuy = () => {
         console.log("acá va el post a la api")
     }
     return (
@@ -26,22 +27,28 @@ const Cart = () => {
                     </svg></span>
                     <h5>My Cart</h5>
                 </div>
-                <div className="card-body">
-                    <h4 className="card-title text-capitalize">List of your products:</h4>
-                    <ul className="list-group">
-                        {arrayProducts?.map((product, index) =>
-                            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                                <span>{product.name}</span>
-                                <span className="badge bg-primary rounded-pill">{product.price}</span>
-                                <button className="btn"><span className="badge bg-danger rounded-pill" onClick={() => handleDeleteProduct(product)}>X</span></button>
-                            </li>)}
-                    </ul>
-                    <div className="card-footer d-flex justify-content-between align-items-center">
-                        <span>Total:</span>
-                        <span className="badge bg-primary rounded-pill"><span>$</span>{total}</span>
-                        <button className="btn"><span className="badge bg-success rounded-pill text-capitalize" onClick={() => handleBuy()}>Buy Now</span></button>
+                {arrayProducts.length === 0 ?
+                    <div className="card-body">
+                        <h4 className="card-title text-capitalize">Your Cart Is Empty</h4>
                     </div>
-                </div>
+                    :
+                    <div className="card-body">
+                        <h4 className="card-title text-capitalize">List of your products:</h4>
+                        <ul className="list-group">
+                            {arrayProducts?.map((product, index) =>
+                                <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>{product.name}</span>
+                                    <span className="badge bg-primary rounded-pill">{product.price}</span>
+                                    <button className="btn"><span className="badge bg-danger rounded-pill" onClick={() => handleDeleteProduct(product)}>X</span></button>
+                                </li>)}
+                        </ul>
+                        <div className="card-footer d-flex justify-content-between align-items-center">
+                            <span>Total:</span>
+                            <span className="badge bg-primary rounded-pill"><span>$</span>{total}</span>
+                            <button className="btn"><span className="badge bg-success rounded-pill text-capitalize" onClick={() => handleBuy()}>Buy Now</span></button>
+                        </div>
+                    </div>
+                }
             </div>
             <BackBtn />
         </div>
