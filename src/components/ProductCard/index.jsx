@@ -4,7 +4,7 @@ import { getProducts } from "./api"
 
 const ProductCard = () => {
     const [products, setProducts] = useState([])
-    const [cartProducts, setCartProducts] = useState([])
+    const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('products')) || [])
     const handleAddToCart =(product)=>{
         setCartProducts(prevState => ([...prevState, product]))
     }
