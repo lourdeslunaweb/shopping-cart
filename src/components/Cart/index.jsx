@@ -16,9 +16,14 @@ const Cart = () => {
         console.log(product)
         // localStorage.setItem('products', JSON.stringify({ ...arrayProducts, product}))
     }
-    const handleBuy = () => {
-        console.log("acá va el post a la api")
-        buyProducts(arrayProducts)
+    const handleBuy = async () => {
+        buyProducts()
+            .then((response) => {
+                window.alert("your purchase was successful")
+            })
+            .catch((err) => {
+                window.alert("oops! An error occurred. Please, try again later.")
+            })
     }
     return (
         <div className="container d-flex align-items-center justify-content-center flex-column mb-5">
