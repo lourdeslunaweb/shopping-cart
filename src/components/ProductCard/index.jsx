@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { generateId } from "../../utils/generateID";
 import { getProducts } from "./api"
 
 
@@ -6,6 +7,7 @@ const ProductCard = () => {
     const [products, setProducts] = useState([])
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('products')) || [])
     const handleAddToCart = (product) => {
+        product.id_LC = generateId(20)
         setCartProducts(prevState => ([...prevState, product]))
     }
     useEffect(() => {
