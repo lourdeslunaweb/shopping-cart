@@ -5,7 +5,7 @@ import { getProducts } from "./api"
 const ProductCard = () => {
     const [products, setProducts] = useState([])
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('products')) || [])
-    const handleAddToCart =(product)=>{
+    const handleAddToCart = (product) => {
         setCartProducts(prevState => ([...prevState, product]))
     }
     useEffect(() => {
@@ -16,6 +16,9 @@ const ProductCard = () => {
             setProducts(response.data.products);
         });
     }, []);
+    const stockAlert = () =>{
+        window.alert("this product is out of stock")
+    }
     return (
         <div className="container d-flex justify-content-center flex-wrap" style={{ marginTop: '9em' }}>
             <div className="row d-flex justify-content-center">
@@ -27,7 +30,10 @@ const ProductCard = () => {
                             <p className="card-text">{product.description}</p>
                             <p className="card-text">Stock: {product.stock}</p>
                             <p className="card-text">{product.price}</p>
-                            <button type="button" className="btn btn-outline-dark btn-sm rounded-pill text-capitalize" onClick={() => handleAddToCart(product)}>Add To Cart</button>
+                            {product.stock === 0 ?
+                                <button type="button" className="btn btn-outline-dark btn-sm rounded-pill text-capitalize" onClick={() => stockAlert()}>Out of Stock</button>
+                                : <button type="button" className="btn btn-outline-dark btn-sm rounded-pill text-capitalize" onClick={() => handleAddToCart(product)}>Add To Cart</button>
+                            }
                         </div>
                     </div>
                 ))}
