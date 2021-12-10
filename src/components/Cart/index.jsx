@@ -13,10 +13,17 @@ const Cart = () => {
             }, 0)).toFixed(2)
         )
     }, [arrayProducts]);
+
+
+
     const handleDeleteProduct = (product) => {
-        const newArr = arrayProducts.filter(p => p._id  !== product._id );
-        setArrayProducts(newArr)
+        const setProd = new Set (arrayProducts)
+        setProd.forEach(prod => console.log(prod.name))
     }
+
+
+
+
     const handleBuy = async () => {
         buyProducts()
             .then((response) => {
