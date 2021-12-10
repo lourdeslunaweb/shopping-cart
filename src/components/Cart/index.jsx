@@ -6,6 +6,7 @@ const Cart = () => {
     const [arrayProducts, setArrayProducts] = useState(JSON.parse(localStorage.getItem('products')))
     const [total, setTotal] = useState(0)
     useEffect(() => {
+        localStorage.setItem('products', JSON.stringify(arrayProducts))
         setTotal(
             (arrayProducts.reduce((acum, product) => {
                 return acum + Number(product.price.slice(1));
@@ -13,9 +14,8 @@ const Cart = () => {
         )
     }, [arrayProducts]);
     const handleDeleteProduct = (product) => {
-        const newArr = arrayProducts.filter(p => p.id_LC  !== product.id_LC );
-        console.log(newArr)
-        setArrayProducts(localStorage.setItem('products', JSON.stringify(newArr)))
+        const newArr = arrayProducts.filter(p => p._id  !== product._id );
+        setArrayProducts(newArr)
     }
     const handleBuy = async () => {
         buyProducts()
