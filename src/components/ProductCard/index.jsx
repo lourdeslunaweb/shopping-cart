@@ -5,9 +5,24 @@ import { getProducts } from "./api"
 const ProductCard = () => {
     const [products, setProducts] = useState([])
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('products')) || [])
+
+
     const handleAddToCart = (product) => {
-        setCartProducts(prevState => ([...prevState, product]))
-    }
+        const exist = cartProducts.find((x) => x._id === product._id);
+        if (exist) {
+            setCartProducts(
+                cartProducts.map((x) =>
+                    x.id === product._id ? { ...exist, qty: exist.qty + 1 } : x
+                )
+            );
+        } else {
+            setCartProducts([...cartProducts, { ...product, qty: 1 }]);
+        }
+    };
+
+
+
+
     useEffect(() => {
         localStorage.setItem('products', JSON.stringify(cartProducts))
     }, [cartProducts])
@@ -16,7 +31,7 @@ const ProductCard = () => {
             setProducts(response.data.products);
         });
     }, []);
-    const stockAlert = () =>{
+    const stockAlert = () => {
         window.alert("this product is out of stock")
     }
     return (
