@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { BackBtn } from ".."
 import { buyProducts } from "./api"
+import swal from 'sweetalert'
+
 
 const Cart = () => {
     const [arrayProducts, setArrayProducts] = useState(JSON.parse(localStorage.getItem('products')))
@@ -13,24 +15,32 @@ const Cart = () => {
             }, 0)).toFixed(2)
         )
     }, [arrayProducts]);
-
-
-
     const handleDeleteProduct = (product) => {
-        const setProd = new Set (arrayProducts)
-        setProd.forEach(prod => console.log(prod.name))
+        const newArr = arrayProducts.filter(p => p._id !== product._id);
+        setArrayProducts(newArr)
     }
-
-
-
-
+    const FinishPurchase = () =>{
+        localStorage.removeItem('products')
+        window.location.href = "/"
+    }
     const handleBuy = async () => {
         buyProducts()
             .then((response) => {
-                window.alert("your purchase was successful")
+                swal({
+                    title: "All Right!!",
+                    text: "Your Purchase Was Successful",
+                    icon: "success",
+                })
+                .then(() => {
+                    FinishPurchase()
+                })
             })
             .catch((err) => {
-                window.alert("oops! An error occurred. Please, try again later.")
+                swal({
+                    title: "An error occurred",
+                    text: "Please, try again later",
+                    icon: "error",
+                })
             })
     }
     return (
@@ -60,7 +70,7 @@ const Cart = () => {
                         <div className="card-footer d-flex justify-content-between align-items-center">
                             <span>Total:</span>
                             <span className="badge bg-primary rounded-pill"><span>$</span>{total}</span>
-                            <button className="btn"><span className="badge bg-success rounded-pill text-capitalize" onClick={() => handleBuy()}>Buy Now</span></button>
+                            <button className="btn" type="button" onClick={() => handleBuy()}><span className="badge bg-success rounded-pill text-capitalize">Buy Now</span></button>
                         </div>
                     </div>
                 }
