@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { Loading } from "../Loading";
 import { getProducts } from "./api"
 
 
 const ProductCard = () => {
+    const [isLoading, setIsLoading] =  useState(true)
     const [products, setProducts] = useState([])
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('products')) || [])
-
-
     const handleAddToCart = (product) => {
         const exist = cartProducts.find((x) => x._id === product._id);
         if (exist) {
@@ -19,15 +19,12 @@ const ProductCard = () => {
             setCartProducts([...cartProducts, { ...product, qty: 1 }]);
         }
     };
-
-
-
-
     useEffect(() => {
         localStorage.setItem('products', JSON.stringify(cartProducts))
     }, [cartProducts])
     useEffect(() => {
         getProducts().then((response) => {
+            setIsLoading(false)
             setProducts(response.data.products);
         });
     }, []);
@@ -37,6 +34,7 @@ const ProductCard = () => {
     return (
         <div className="container d-flex justify-content-center flex-wrap" style={{ marginTop: '9em' }}>
             <div className="row d-flex justify-content-center">
+                { isLoading? <Loading/> : null}
                 {products?.map((product) => (
                     <div key={product._id} className="card m-3 shadow p-3 mb-5 bg-body rounded" style={{ width: '18rem' }}>
                         <img src={product.image} alt="product-img" className="mt-2" />
