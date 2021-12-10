@@ -1,24 +1,16 @@
 import { useEffect, useState } from "react";
 import { Loading } from "../Loading";
-import { getProducts } from "./api"
+import { getProducts } from "./api";
+import swal from 'sweetalert';
 
 
 const ProductCard = () => {
-    const [isLoading, setIsLoading] =  useState(true)
+    const [isLoading, setIsLoading] = useState(true)
     const [products, setProducts] = useState([])
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('products')) || [])
     const handleAddToCart = (product) => {
-        const exist = cartProducts.find((x) => x._id === product._id);
-        if (exist) {
-            setCartProducts(
-                cartProducts.map((x) =>
-                    x.id === product._id ? { ...exist, qty: exist.qty + 1 } : x
-                )
-            );
-        } else {
-            setCartProducts([...cartProducts, { ...product, qty: 1 }]);
-        }
-    };
+        setCartProducts(prevState => ([...prevState, product]))
+    }
     useEffect(() => {
         localStorage.setItem('products', JSON.stringify(cartProducts))
     }, [cartProducts])
@@ -29,12 +21,16 @@ const ProductCard = () => {
         });
     }, []);
     const stockAlert = () => {
-        window.alert("this product is out of stock")
+        swal({
+            title: "Oooops!!",
+            text: "This Product Is Out Of Stock",
+            icon: "warning",
+        })
     }
     return (
         <div className="container d-flex justify-content-center flex-wrap" style={{ marginTop: '9em' }}>
             <div className="row d-flex justify-content-center">
-                { isLoading? <Loading/> : null}
+                {isLoading ? <Loading /> : null}
                 {products?.map((product) => (
                     <div key={product._id} className="card m-3 shadow p-3 mb-5 bg-body rounded" style={{ width: '18rem' }}>
                         <img src={product.image} alt="product-img" className="mt-2" />

@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="bg-dark">
+        <footer className="bg-dark mt-5">
             <div className="container d-flex flex-column justify-content-center align-items-center pb-3">
                 <div className="row mt-3">
                     <h3 className="text-white text-capitalize text-center">Made with <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">

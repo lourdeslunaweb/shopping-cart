@@ -15,7 +15,7 @@ const Navbar = () => {
                         </svg></span>
                     </div>
                     <div className="col-12 col-md-4 d-flex justify-content-center align-items-center mt-3 mt-md-0">
-                        <NavLink to="/cart"><button type="button" className="btn btn-dark btn-outline-success rounded-pill text-capitalize">Cart Details</button></NavLink>
+                        <NavLink to="/cart"><button type="button" className="btn btn-dark btn-outline-success rounded-pill text-capitalize">My Cart</button></NavLink>
                     </div>
                 </div>
             </div>
